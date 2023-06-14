@@ -1,0 +1,110 @@
+.Layout {
+  margin: 0 auto;
+  max-width: 1200px;
+  min-width: 800px;
+}
+
+.TopBar {
+  overflow: hidden;
+}
+
+.Input {
+  background-color: gray;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.TopBar .MyList {
+  float: left;
+}
+
+.TopBar .Logo {
+  float: right;
+}
+
+.Working-Container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.Done-Container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.Todo-Box {
+  width: 350px;
+  margin-right: 10px;
+  height: 200px;
+  border: 1px solid green;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.input-title,
+.input-content {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #333;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.input-title:hover,
+.input-content:hover {
+  background-color: #f5f5f5;
+}
+
+.AddBtn {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+.AddBtn:hover {
+  background-color: #0056b3;
+}
+
+.DeleteButton {
+  margin-top: 20px;
+  padding: 8px 16px;
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.DeleteButton:hover {
+  background-color: #c82333;
+}
+
+.DoneButton {
+  padding: 8px 16px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.DoneButton:hover {
+  background-color: #218838;
+}
