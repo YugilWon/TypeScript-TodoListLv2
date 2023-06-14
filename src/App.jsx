@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./App.css";
 import DoneList from "./components/DoneList";
 import NotDoneList from "./components/NotDoneList";
+import TopBar from "./components/TopBar";
+import Input from "./components/Input";
 
 function App() {
   //setTodo 선언 초기값으로 완성본과 같이 넣어둠
@@ -43,7 +45,6 @@ function App() {
     setTitle("");
     setContent("");
   };
-  console.log(Todo);
   //삭제버튼을 클릭했을 시 작동하는 이벤트 핸들러
   const clickRemoveButtonHandler = (id) => {
     const updatedTodo = Todo.filter((Todo) => Todo.id !== id);
@@ -78,35 +79,15 @@ function App() {
 
   return (
     <div className="Layout">
-      <div className="TopBar">
-        <div className="MyList">
-          <h2>Personal Todo List</h2>
-        </div>
-        <div className="Logo">
-          <h2>리에잇트!</h2>
-        </div>
-      </div>
-      <form className="Input">
-        <div className="group">
-          <label className="title-label">제목</label>
-          <input
-            type="text"
-            value={Title}
-            className="input-title"
-            onChange={TitleChangeHandler}
-          ></input>
-          <label className="content-label">내용</label>
-          <input
-            type="text"
-            value={Content}
-            className="input-content"
-            onChange={ContentChangeHandler}
-          ></input>
-          <button className="AddBtn" onClick={clickAddButtonHandler}>
-            추가하기
-          </button>
-        </div>
-      </form>
+      <TopBar />
+      <Input
+        Title={Title}
+        Content={Content}
+        TitleChangeHandler={TitleChangeHandler}
+        ContentChangeHandler={ContentChangeHandler}
+        clickAddButtonHandler={clickAddButtonHandler}
+      />
+
       <h2>Working..</h2>
       <div className="Working-Container">
         {Todo.map((item) => (
@@ -130,5 +111,4 @@ function App() {
     </div>
   );
 }
-// 아무거나 써봅니다
 export default App;
