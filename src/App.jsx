@@ -1,21 +1,13 @@
 import React, { useState } from "react";
 import "./App.css";
-import DoneList from "./components/DoneList";
-import NotDoneList from "./components/NotDoneList";
 import TopBar from "./components/TopBar";
 import Input from "./components/Input";
+import TodoList from "./components/TodoList";
 
 function App() {
-  //setTodo 선언 초기값으로 완성본과 같이 넣어둠
   const id = Math.random();
-  const [Todo, setTodo] = useState([
-    {
-      id: id,
-      Title: "리액트 공부하기",
-      Content: "리액트 기초를 공부해봅시다.",
-    },
-  ]);
   //값을 변경하고 재렌더링하기위한 State 선언
+  const [Todo, setTodo] = useState([]);
   const [DoneTodo, setDoneTodo] = useState([]);
   const [Title, setTitle] = useState("");
   const [Content, setContent] = useState("");
@@ -39,9 +31,7 @@ function App() {
       Title,
       Content,
     };
-    //입력된 내용을 Todo 객체 배열을 불러와서 풀어준 후 newTodo를 추가해서 다시 디스플레이
     setTodo([...Todo, newTodo]);
-    //아래 두개는 입력 폼 비워주는 코드
     setTitle("");
     setContent("");
   };
@@ -55,26 +45,17 @@ function App() {
 
   //완료버튼을 클릭했을 시 작동하는 이벤트 핸들러
   const clickDoneButtonHandler = (id) => {
-    /*이곳에서 깊은복사 일어남 선택된 id값을 가진 객체배열을 DoneItem에 할당 후
-    setDoneTodo를 통해서는 선택된 객체배열을 포함해 DoneTodo를 생성 
-    그아래인 setTodo는 선택된 id값을 제외한 나머지 객체배열들로만 생성됨*/
     const DoneItem = Todo.find((item) => item.id === id);
     setDoneTodo([...DoneTodo, DoneItem]);
     setTodo(Todo.filter((item) => item.id !== id));
   };
 
-  /*취소 버튼을 클릭했을 시 작동하는 핸들러
-  선택된 id값을 가진 DoneTodo안에 존재하던 객체배열을 canceledItem에 할당
-  그 후 updateedDoneTodo에서 해당 선택된 객체배열을 제외한 새로운 배열을 만듬
-  그 새로운 배열들로 DoneTodo에 재렌더링
-  setTodo에는 Todo 배열을 얕은참조로 복사하고 canceledItem 객체배열을 추가해서 새로운 Todo 배열을 만듬 */
+  //취소 버튼을 클릭했을 시 작동하는 핸들러
   const clickCancelButtonHandler = (id) => {
     const canceledItem = DoneTodo.find((item) => item.id === id);
     const updatedDoneTodo = DoneTodo.filter((item) => item.id !== id);
     setDoneTodo(updatedDoneTodo);
-    /*여기 그냥 setTodo([...Todo, ...canceledItem]); 이렇게하면 문법에 안맞는다고 오류나요
-    {...canceledItem}이런식으로 객체를 얕은 복사하여야 오류가 안납니다*/
-    setTodo([...Todo, { ...canceledItem }]);
+    setTodo([...Todo, canceledItem]);
   };
 
   return (
@@ -91,20 +72,22 @@ function App() {
       <h2>Working..</h2>
       <div className="Working-Container">
         {Todo.map((item) => (
-          <NotDoneList
+          <TodoList
             item={item}
             clickRemoveButtonHandler={clickRemoveButtonHandler}
             clickDoneButtonHandler={clickDoneButtonHandler}
+            isDone={false}
           />
         ))}
       </div>
       <h2>Done..!</h2>
       <div className="Done-Container">
         {DoneTodo.map((item) => (
-          <DoneList
+          <TodoList
             item={item}
             clickRemoveButtonHandler={clickRemoveButtonHandler}
             clickCancelButtonHandler={clickCancelButtonHandler}
+            isDone={true}
           />
         ))}
       </div>
