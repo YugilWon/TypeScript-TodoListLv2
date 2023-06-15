@@ -26,6 +26,12 @@ function App() {
   새로고침이 발생해 preventDefault를 사용해서 새로고침 동작을 막아줌 */
   const clickAddButtonHandler = (event) => {
     event.preventDefault();
+
+    if (Title.trim() === "" || Content.trim() === "") {
+      alert("제목과 내용을 입력해주세요.");
+      return;
+    }
+
     const newTodo = {
       id: id,
       Title,
@@ -69,7 +75,7 @@ function App() {
         clickAddButtonHandler={clickAddButtonHandler}
       />
 
-      <h2>Working..</h2>
+      <h2>Working..🔥</h2>
       <div className="Working-Container">
         {Todo.map((item) => (
           <TodoList
@@ -80,7 +86,7 @@ function App() {
           />
         ))}
       </div>
-      <h2>Done..!</h2>
+      <h2>Done..!🎉</h2>
       <div className="Done-Container">
         {DoneTodo.map((item) => (
           <TodoList
