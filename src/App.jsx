@@ -5,10 +5,11 @@ import Input from "./components/Input";
 import TodoList from "./components/TodoList";
 
 function App() {
-  const id = Math.random();
+  const isDone = false;
   //값을 변경하고 재렌더링하기위한 State 선언
-  const [Todo, setTodo] = useState([]);
-  const [DoneTodo, setDoneTodo] = useState([]);
+  const [Todo, setTodo] = useState([
+    { id: 0, Title: "리액트 공부하기", Content: "열심히 공부하기", isDone },
+  ]);
   const [Title, setTitle] = useState("");
   const [Content, setContent] = useState("");
 
@@ -33,36 +34,49 @@ function App() {
     }
 
     const newTodo = {
-      id: id,
+      id: Todo.length + 1,
       Title,
       Content,
+      isDone,
     };
     setTodo([...Todo, newTodo]);
     setTitle("");
     setContent("");
   };
+
   //삭제버튼을 클릭했을 시 작동하는 이벤트 핸들러
   const clickRemoveButtonHandler = (id) => {
     const updatedTodo = Todo.filter((Todo) => Todo.id !== id);
-    const updatedDoneTodo = DoneTodo.filter((item) => item.id !== id);
     setTodo(updatedTodo);
-    setDoneTodo(updatedDoneTodo);
   };
 
   //완료버튼을 클릭했을 시 작동하는 이벤트 핸들러
   const clickDoneButtonHandler = (id) => {
-    const DoneItem = Todo.find((item) => item.id === id);
-    setDoneTodo([...DoneTodo, DoneItem]);
-    setTodo(Todo.filter((item) => item.id !== id));
+    setTodo((beforeTodo) => {
+      return beforeTodo.map((item) => {
+        if (item.id === id) {
+          return { ...item, isDone: true };
+        }
+        return item;
+      });
+    });
   };
 
   //취소 버튼을 클릭했을 시 작동하는 핸들러
   const clickCancelButtonHandler = (id) => {
-    const canceledItem = DoneTodo.find((item) => item.id === id);
-    const updatedDoneTodo = DoneTodo.filter((item) => item.id !== id);
-    setDoneTodo(updatedDoneTodo);
-    setTodo([...Todo, canceledItem]);
+    setTodo((beforeTodo) => {
+      return beforeTodo.map((item) => {
+        if (item.id === id) {
+          return { ...item, isDone: false };
+        }
+        return item;
+      });
+    });
   };
+
+  //Working-Container와 Done-Container에 들어갈 todo리스트 isDone 상태로 필터링
+  const WorkingTodo = Todo.filter((item) => !item.isDone);
+  const DoneTodo = Todo.filter((item) => item.isDone);
 
   return (
     <div className="Layout">
@@ -77,12 +91,12 @@ function App() {
 
       <h2>Working..🔥</h2>
       <div className="Working-Container">
-        {Todo.map((item) => (
+        {WorkingTodo.map((item) => (
           <TodoList
             item={item}
             clickRemoveButtonHandler={clickRemoveButtonHandler}
             clickDoneButtonHandler={clickDoneButtonHandler}
-            isDone={false}
+            isDone={item.isDone}
           />
         ))}
       </div>
@@ -93,7 +107,7 @@ function App() {
             item={item}
             clickRemoveButtonHandler={clickRemoveButtonHandler}
             clickCancelButtonHandler={clickCancelButtonHandler}
-            isDone={true}
+            isDone={item.isDone}
           />
         ))}
       </div>
