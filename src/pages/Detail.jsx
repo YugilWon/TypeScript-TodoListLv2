@@ -44,7 +44,7 @@ function Detail() {
   return (
     <CardContainer>
       <p>ID: {todo.id}</p>
-      <Content>제목: {todo.title}</Content>
+      <Title>제목: {todo.title}</Title>
       <Content>내용: {todo.content}</Content>
       <Button onClick={() => navigate("/")}>Home으로!</Button>
     </CardContainer>

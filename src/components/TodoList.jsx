@@ -1,8 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { doneTodo, deleteTodo, cancelTodo } from "../redux/modules/todos";
 import { Link } from "react-router-dom";
+
+const WorkingContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
+const DoneContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
 
 const TodoBox = styled.div`
   position: relative;
@@ -60,7 +72,7 @@ const DetailButton = styled(Link)`
   }
 `;
 
-const TodoList = ({ item, isDone }) => {
+const TodoList = () => {
   const dispatch = useDispatch();
 
   //삭제버튼을 클릭했을 시 작동하는 이벤트 핸들러
@@ -78,27 +90,62 @@ const TodoList = ({ item, isDone }) => {
     dispatch(cancelTodo(id));
   };
 
+  const todos = useSelector((state) => state.todos);
+
+  const WorkingTodo = todos.filter((item) => !item.isDone);
+  const DoneTodo = todos.filter((item) => item.isDone);
+
   return (
     <>
-      <TodoBox key={item.id}>
-        <h2>{item.title}</h2>
-        {item.content}
-        <DetailButton to={`/Detail/${item.id}`}>자세히</DetailButton>
-        <div className="Button">
-          <DeleteButton onClick={() => clickRemoveButtonHandler(item.id)}>
-            삭제하기
-          </DeleteButton>
-          {isDone ? (
-            <DoneButton onClick={() => clickCancelButtonHandler(item.id)}>
-              취소
-            </DoneButton>
-          ) : (
-            <DoneButton onClick={() => clickDoneButtonHandler(item.id)}>
-              완료
-            </DoneButton>
-          )}
-        </div>
-      </TodoBox>
+      <h2>Working..🔥</h2>
+      <WorkingContainer>
+        {WorkingTodo.map((item) => (
+          <TodoBox key={item.id}>
+            <h2>{item.title}</h2>
+            {item.content}
+            <DetailButton to={`/Detail/${item.id}`}>자세히</DetailButton>
+            <div className="Button">
+              <DeleteButton onClick={() => clickRemoveButtonHandler(item.id)}>
+                삭제하기
+              </DeleteButton>
+              {item.isDone ? (
+                <DoneButton onClick={() => clickCancelButtonHandler(item.id)}>
+                  취소
+                </DoneButton>
+              ) : (
+                <DoneButton onClick={() => clickDoneButtonHandler(item.id)}>
+                  완료
+                </DoneButton>
+              )}
+            </div>
+          </TodoBox>
+        ))}
+      </WorkingContainer>
+
+      <h2>Done..!🎉</h2>
+      <DoneContainer>
+        {DoneTodo.map((item) => (
+          <TodoBox key={item.id}>
+            <h2>{item.title}</h2>
+            {item.content}
+            <DetailButton to={`/Detail/${item.id}`}>자세히</DetailButton>
+            <div className="Button">
+              <DeleteButton onClick={() => clickRemoveButtonHandler(item.id)}>
+                삭제하기
+              </DeleteButton>
+              {item.isDone ? (
+                <DoneButton onClick={() => clickCancelButtonHandler(item.id)}>
+                  취소
+                </DoneButton>
+              ) : (
+                <DoneButton onClick={() => clickDoneButtonHandler(item.id)}>
+                  완료
+                </DoneButton>
+              )}
+            </div>
+          </TodoBox>
+        ))}
+      </DoneContainer>
     </>
   );
 };
