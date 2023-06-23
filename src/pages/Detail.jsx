@@ -1,38 +1,7 @@
 import React from "react";
-import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-
-const CardContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: #f1f1f1;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-`;
-
-const Title = styled.h1`
-  font-size: 24px;
-  margin-bottom: 16px;
-`;
-
-const Content = styled.p`
-  font-size: 18px;
-  margin-bottom: 16px;
-`;
-
-const Button = styled.button`
-  padding: 8px 16px;
-  font-size: 16px;
-  background-color: #e91e63;
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-`;
+import Styled from "../components/styledcomponents/Styled";
 
 function Detail() {
   const navigate = useNavigate();
@@ -42,12 +11,12 @@ function Detail() {
   const todo = todos.find((item) => item.id === id);
 
   return (
-    <CardContainer>
+    <Styled.CardContainer>
       <p>ID: {todo.id}</p>
-      <Title>제목: {todo.title}</Title>
-      <Content>내용: {todo.content}</Content>
-      <Button onClick={() => navigate("/")}>Home으로!</Button>
-    </CardContainer>
+      <Styled.Title>제목: {todo.title}</Styled.Title>
+      <Styled.Content>내용: {todo.content}</Styled.Content>
+      <Styled.Button onClick={() => navigate("/")}>Home으로!</Styled.Button>
+    </Styled.CardContainer>
   );
 }
 

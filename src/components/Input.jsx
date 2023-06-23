@@ -1,72 +1,8 @@
 import React, { useState } from "react";
 import uuid from "react-uuid";
-import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { addTodo } from "../redux/modules/todos";
-
-const InputForm = styled.form`
-  background-color: gray;
-  border-radius: 20px;
-  padding: 20px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-`;
-
-const InputTitle = styled.input`
-  margin-top: 20px;
-  font-size: 16px;
-  color: #333;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 200px;
-  &:hover {
-    background-color: #f5f5f5;
-  }
-`;
-
-const InputGroup = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  margin-bottom: 10px;
-`;
-
-const Label = styled.label`
-  font-size: 16px;
-  color: #333;
-  margin-top: 15px;
-  margin-left: 5px;
-`;
-
-const InputContent = styled.input`
-  margin-top: 20px;
-  font-size: 16px;
-  color: #333;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 200px;
-  &:hover {
-    background-color: #f5f5f5;
-  }
-`;
-
-const AddBtn = styled.button`
-  padding: 8px 16px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 13px;
-  margin-left: 10px;
-  &:hover {
-    background-color: #0056b3;
-  }
-`;
+import Styled from "./styledcomponents/Styled";
 
 const Input = () => {
   const [title, setTitle] = useState("");
@@ -106,25 +42,25 @@ const Input = () => {
   };
 
   return (
-    <InputForm>
-      <InputGroup>
-        <Label>제목</Label>
-        <InputTitle
+    <Styled.InputForm>
+      <Styled.InputGroup>
+        <Styled.Label>제목</Styled.Label>
+        <Styled.InputTitle
           type="text"
           value={title}
           onChange={TitleChangeHandler}
-        ></InputTitle>
-      </InputGroup>
-      <InputGroup>
-        <Label>내용</Label>
-        <InputContent
+        ></Styled.InputTitle>
+      </Styled.InputGroup>
+      <Styled.InputGroup>
+        <Styled.Label>내용</Styled.Label>
+        <Styled.InputContent
           type="text"
           value={content}
           onChange={ContentChangeHandler}
-        ></InputContent>
-      </InputGroup>
-      <AddBtn onClick={clickAddButtonHandler}>추가하기</AddBtn>
-    </InputForm>
+        ></Styled.InputContent>
+      </Styled.InputGroup>
+      <Styled.AddBtn onClick={clickAddButtonHandler}>추가하기</Styled.AddBtn>
+    </Styled.InputForm>
   );
 };
 

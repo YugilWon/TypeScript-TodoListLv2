@@ -1,76 +1,7 @@
 import React from "react";
-import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { doneTodo, deleteTodo, cancelTodo } from "../redux/modules/todos";
-import { Link } from "react-router-dom";
-
-const WorkingContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-`;
-
-const DoneContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-`;
-
-const TodoBox = styled.div`
-  position: relative;
-  width: 350px;
-  margin-right: 10px;
-  height: 200px;
-  border: 1px solid green;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-`;
-
-const DeleteButton = styled.button`
-  margin-top: 20px;
-  margin-right: 10px;
-  padding: 8px 16px;
-  background-color: #dc3545;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  &:hover {
-    background-color: #c82333;
-  }
-`;
-
-const DoneButton = styled.button`
-  padding: 8px 16px;
-  margin-left: 10px;
-  background-color: #28a745;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  &:hover {
-    background-color: #218838;
-  }
-`;
-
-const DetailButton = styled(Link)`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 8px 16px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  text-decoration: none;
-  &:hover {
-    background-color: #0056b3;
-  }
-`;
+import Styled from "./styledcomponents/Styled";
 
 const TodoList = () => {
   const dispatch = useDispatch();
@@ -98,54 +29,70 @@ const TodoList = () => {
   return (
     <>
       <h2>Working..🔥</h2>
-      <WorkingContainer>
+      <Styled.WorkingContainer>
         {WorkingTodo.map((item) => (
-          <TodoBox key={item.id}>
+          <Styled.TodoBox key={item.id}>
             <h2>{item.title}</h2>
             {item.content}
-            <DetailButton to={`/Detail/${item.id}`}>자세히</DetailButton>
+            <Styled.DetailButton to={`/Detail/${item.id}`}>
+              자세히
+            </Styled.DetailButton>
             <div className="Button">
-              <DeleteButton onClick={() => clickRemoveButtonHandler(item.id)}>
+              <Styled.DeleteButton
+                onClick={() => clickRemoveButtonHandler(item.id)}
+              >
                 삭제하기
-              </DeleteButton>
+              </Styled.DeleteButton>
               {item.isDone ? (
-                <DoneButton onClick={() => clickCancelButtonHandler(item.id)}>
+                <Styled.DoneButton
+                  onClick={() => clickCancelButtonHandler(item.id)}
+                >
                   취소
-                </DoneButton>
+                </Styled.DoneButton>
               ) : (
-                <DoneButton onClick={() => clickDoneButtonHandler(item.id)}>
+                <Styled.DoneButton
+                  onClick={() => clickDoneButtonHandler(item.id)}
+                >
                   완료
-                </DoneButton>
+                </Styled.DoneButton>
               )}
             </div>
-          </TodoBox>
+          </Styled.TodoBox>
         ))}
-      </WorkingContainer>
+      </Styled.WorkingContainer>
 
       <h2>Done..!🎉</h2>
-      <DoneContainer>
+      <Styled.DoneContainer>
         {DoneTodo.map((item) => (
-          <TodoBox key={item.id}>
+          <Styled.TodoBox key={item.id}>
             <h2>{item.title}</h2>
             {item.content}
-            <DetailButton to={`/Detail/${item.id}`}>자세히</DetailButton>
+            <Styled.DetailButton to={`/Detail/${item.id}`}>
+              자세히
+            </Styled.DetailButton>
             <div className="Button">
-              <DeleteButton onClick={() => clickRemoveButtonHandler(item.id)}>
+              <Styled.DeleteButton
+                onClick={() => clickRemoveButtonHandler(item.id)}
+              >
                 삭제하기
-              </DeleteButton>
+              </Styled.DeleteButton>
               {item.isDone ? (
-                <DoneButton onClick={() => clickCancelButtonHandler(item.id)}>
+                <Styled.DoneButton
+                  onClick={() => clickCancelButtonHandler(item.id)}
+                >
                   취소
-                </DoneButton>
+                </Styled.DoneButton>
               ) : (
-                <DoneButton onClick={() => clickDoneButtonHandler(item.id)}>
+                <Styled.DoneButton
+                  onClick={() => clickDoneButtonHandler(item.id)}
+                >
                   완료
-                </DoneButton>
+                </Styled.DoneButton>
               )}
             </div>
-          </TodoBox>
+          </Styled.TodoBox>
         ))}
-      </DoneContainer>
+      </Styled.DoneContainer>
     </>
   );
 };
