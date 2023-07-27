@@ -1,29 +1,42 @@
 import uuid from "react-uuid";
 
-const ADD_TODO = "ADD_TODO";
-const DELETE_TODO = "DELETE_TODO";
-const DONE_TODO = "DONE_TODO";
-const CANCEL_TODO = "CANCEL_TODO";
+export interface Todo {
+  id: string;
+  title: string;
+  content: string;
+  isDone: boolean;
+}
 
-export const addTodo = (payload) => ({
+const ADD_TODO = "ADD_TODO" as const;
+const DELETE_TODO = "DELETE_TODO" as const;
+const DONE_TODO = "DONE_TODO" as const;
+const CANCEL_TODO = "CANCEL_TODO" as const;
+
+export const addTodo = (payload: Todo) => ({
   type: ADD_TODO,
   payload,
 });
 
-export const deleteTodo = (payload) => ({
+export const deleteTodo = (payload: string) => ({
   type: DELETE_TODO,
   payload,
 });
 
-export const doneTodo = (payload) => ({
+export const doneTodo = (payload: string) => ({
   type: DONE_TODO,
   payload,
 });
 
-export const cancelTodo = (payload) => ({
+export const cancelTodo = (payload: string) => ({
   type: CANCEL_TODO,
   payload,
 });
+
+type TodoAction =
+  | ReturnType<typeof addTodo>
+  | ReturnType<typeof deleteTodo>
+  | ReturnType<typeof doneTodo>
+  | ReturnType<typeof cancelTodo>;
 
 //초기 상태값(state)
 const initialState = [
@@ -36,7 +49,7 @@ const initialState = [
 ];
 
 //리듀서 : 함수
-const todos = (state = initialState, action) => {
+const todos = (state = initialState, action: TodoAction) => {
   switch (action.type) {
     case ADD_TODO:
       return [...state, action.payload];

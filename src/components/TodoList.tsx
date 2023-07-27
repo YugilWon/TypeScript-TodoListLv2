@@ -1,30 +1,31 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { doneTodo, deleteTodo, cancelTodo } from "../redux/modules/todos";
 import Styled from "./styledcomponents/Styled";
+import { Todo } from "../redux/modules/todos";
+import { RootState } from "../redux/config/configStore";
 
 const TodoList = () => {
   const dispatch = useDispatch();
 
   //삭제버튼을 클릭했을 시 작동하는 이벤트 핸들러
-  const clickRemoveButtonHandler = (id) => {
+  const clickRemoveButtonHandler = (id: string) => {
     dispatch(deleteTodo(id));
   };
 
   //완료버튼을 클릭했을 시 작동하는 이벤트 핸들러
-  const clickDoneButtonHandler = (id) => {
+  const clickDoneButtonHandler = (id: string) => {
     dispatch(doneTodo(id));
   };
 
   //취소 버튼을 클릭했을 시 작동하는 핸들러
-  const clickCancelButtonHandler = (id) => {
+  const clickCancelButtonHandler = (id: string) => {
     dispatch(cancelTodo(id));
   };
 
-  const todos = useSelector((state) => state.todos);
+  const todos = useSelector((state: RootState) => state.todos);
 
-  const WorkingTodo = todos.filter((item) => !item.isDone);
-  const DoneTodo = todos.filter((item) => item.isDone);
+  const WorkingTodo: Todo[] = todos.filter((item: Todo) => !item.isDone);
+  const DoneTodo: Todo[] = todos.filter((item: Todo) => item.isDone);
 
   return (
     <>

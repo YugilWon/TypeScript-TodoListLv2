@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import uuid from "react-uuid";
 import { useDispatch } from "react-redux";
-import { addTodo } from "../redux/modules/todos";
+import { addTodo, Todo } from "../redux/modules/todos";
 import Styled from "./styledcomponents/Styled";
 
 const Input = () => {
@@ -10,18 +10,18 @@ const Input = () => {
   const dispatch = useDispatch();
 
   //제목을 입력하고 추가했을 때 작동하는 핸들러
-  const TitleChangeHandler = (event) => {
+  const TitleChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
   };
 
   //내용을 입력하고 추가했을 때 작동하는 핸들러
-  const ContentChangeHandler = (event) => {
+  const ContentChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setContent(event.target.value);
   };
 
   /*추가 버튼 클릭 form태그를 사용해서 버튼 클릭 시
   새로고침이 발생해 preventDefault를 사용해서 새로고침 동작을 막아줌 */
-  const clickAddButtonHandler = (event) => {
+  const clickAddButtonHandler = (event: React.FormEvent) => {
     event.preventDefault();
 
     if (title.trim() === "" || content.trim() === "") {
